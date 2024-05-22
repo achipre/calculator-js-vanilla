@@ -25,6 +25,8 @@ const buttonEight = document.getElementById('eight')
 const buttonNight = document.getElementById('nine')
 
 
+
+
 // evento button AC
 let operation;
 buttonAC.addEventListener('click', () => {
@@ -172,6 +174,12 @@ buttonPoint.addEventListener('click', () => {
   if (input.value.length >= 8) return
   if (inputV.includes('.')) return
   if (inputV === "0" || inputV === "") return input.value = "0" + point
+  if (input.value !== "" && operation === '=' && inputTop.value !== "") {
+    inputTop.value = ''
+    operation = ''
+    symbolMath.textContent = ''
+    return input.value = "0" + point
+  }
   return input.value = inputV + point
 })
 // buton '+/-'
@@ -182,84 +190,176 @@ buttonPlusMinus.addEventListener('click', () => {
   if (input.value.length >= 9) return
   if (inputV.includes('-')) {
     const newInputtoArr = inputV.split('')
-    const newInput = [...newInputtoArr.slice(1)].toString()
-    console.log(newInput);
+    const newInput = [...newInputtoArr.slice(1)].join('')
 
     return input.value = newInput
   } else {
-    console.log('ingresar');
     return input.value = plusminus + inputV
+  }
+})
+// buton '%'
+buttonPorcentage.addEventListener('click', () => {
+  if (!input.value) return
+  if (input.value.includes('.')) return
+  if (input.value === '0') return
+  if (input.value.length === 1 ) {
+    const newInputValue = input.value
+    return input.value = '0.0' + newInputValue
+  }
+  if (input.value.length === 2) {
+    if (input.value.at(-1) === '0') {
+      const newInputValue = input.value.at(0)
+      return input.value = '0.' + newInputValue
+    }
+    return input.value = '0.' + input.value
+  }
+  if (input.value.length > 2) {
+    const newInputValue = input.value.split('')
+    const position = newInputValue.length - 2
+    const point = '.'
+    newInputValue.splice(position, 0, point)
+    return input.value = newInputValue.join('')
   }
 })
 
 // button  '+'
 buttonPlus.addEventListener('click', () => {
   // simbol operation
+  if (!input.value) return
+  if (input.value !== "" && operation === '=' && inputTop.value !== "") {
+    inputTop.value = input.value
+    operation = '+'
+    symbolMath.textContent = '+'
+    return input.value = ''
+  }
+  if (!inputTop.value) {
+    inputTop.value = input.value 
+  } else if (operation === '+') {
+    inputTop.value = parseFloat(inputTop.value) + parseFloat(input.value)
+  } else if (operation === '-') {
+    inputTop.value = parseFloat(inputTop.value) - parseFloat(input.value)
+  } else if (operation === '*') {
+    inputTop.value = parseFloat(inputTop.value) * parseFloat(input.value)
+  } else {
+    inputTop.value = parseFloat(inputTop.value) / parseFloat(input.value)
+  } 
   if (symbolMath.textContent !== '+') {
     operation = '+'
     symbolMath.textContent = '+'
   }
-  if (!input.value) return
-  if (!inputTop.value) {
-    inputTop.value = input.value 
-  } else {
-    inputTop.value = parseInt(inputTop.value) + parseInt(input.value)
-  }
   return input.value = ''
 })
+//button '-'
 buttonMinus.addEventListener('click', () => {
-  operation = '-'
-  symbolMath.textContent = '-'
-
+  if (!input.value) return
+  if (input.value !== "" && operation === '=' && inputTop.value !== "") {
+    inputTop.value = input.value
+    operation = '-'
+    symbolMath.textContent = '-'
+    return input.value = ''
+  }
   if (!inputTop.value) {
     inputTop.value = input.value 
-  } else  {
-    inputTop.value = parseInt(inputTop.value) - parseInt(input.value)
+  } else if (operation === '+') {
+    inputTop.value = parseFloat(inputTop.value) + parseFloat(input.value)
+  } else if (operation === '-') {
+    inputTop.value = parseFloat(inputTop.value) - parseFloat(input.value)
+  } else if (operation === '*') {
+    inputTop.value = parseFloat(inputTop.value) * parseFloat(input.value)
+  } else {
+    inputTop.value = parseFloat(inputTop.value) / parseFloat(input.value)
+  } 
+
+  if (symbolMath.textContent !== '-') {
+    operation = '-'
+    symbolMath.textContent = '-'
   }
+
   return input.value = ''
 })
 buttonMultiply.addEventListener('click', () => {
-  operation = '*'
-  symbolMath.textContent = '×'
-
+  if (!input.value) return
+  if (input.value !== "" && operation === '=' && inputTop.value !== "") {
+    inputTop.value = input.value
+    operation = '*'
+    symbolMath.textContent = '×'
+    return input.value = ''
+  }
   if (!inputTop.value) {
     inputTop.value = input.value 
+  } else if (operation === '+') {
+    inputTop.value = parseFloat(inputTop.value) + parseFloat(input.value)
+  } else if (operation === '-') {
+    inputTop.value = parseFloat(inputTop.value) - parseFloat(input.value)
+  } else if (operation === '*') {
+    inputTop.value = parseFloat(inputTop.value) * parseFloat(input.value)
   } else {
-    inputTop.value = parseInt(inputTop.value) * parseInt(input.value)
+    inputTop.value = parseFloat(inputTop.value) / parseFloat(input.value)
   }
+  if (symbolMath.textContent !== '×') {
+    operation = '*'
+    symbolMath.textContent = '×'
+  }
+
   return input.value = ''
 })
 buttonDivision.addEventListener('click', () => {
-  operation = '/'
-  symbolMath.textContent = '÷'
-
+  if (!input.value) return
+  if (input.value !== "" && operation === '=' && inputTop.value !== "") {
+    inputTop.value = input.value
+    operation = '/'
+    symbolMath.textContent = '÷'
+    return input.value = ''
+  }
+  
   if (!inputTop.value) {
     inputTop.value = input.value 
+  } else if (operation === '+') {
+    inputTop.value = parseFloat(inputTop.value) + parseFloat(input.value)
+  } else if (operation === '-') {
+    inputTop.value = parseFloat(inputTop.value) - parseFloat(input.value)
+  } else if (operation === '*') {
+    inputTop.value = parseFloat(inputTop.value) * parseFloat(input.value)
   } else {
-    inputTop.value = parseInt(inputTop.value) / parseInt(input.value)
+    inputTop.value = parseFloat(inputTop.value) / parseFloat(input.value)
   }
+  if (symbolMath.textContent !== '÷') {
+    operation = '/'
+    symbolMath.textContent = '÷'
+  }
+
   return input.value = ''
 })
 
 // button  '='
 buttonEqual.addEventListener('click', () => {
   if (!inputTop.value) return
+  if (!input.value) return
   symbolMath.textContent = '='
+  // Plus
   if (operation === '+') {
-    if (input.value === '') {
-      input.value = '0'
-    }
-    const ValueFinal = input.value = parseFloat(inputTop.value) + parseFloat(input.value)
+    if (input.value === '') return
     operation = '='
-    return parseFloat(ValueFinal)
+    const valueFinal = input.value = parseFloat(inputTop.value) + parseFloat(input.value)
+    
+    return parseFloat(valueFinal)
   }
+  // Minus
   if (operation === '-') {
-    return input.value = parseFloat(inputTop.value) - parseFloat(input.value)
+    if (input.value === '') return
+    operation = '='
+    const valueFinal = input.value = parseFloat(inputTop.value) - parseFloat(input.value)
+    return parseFloat(valueFinal)
   }
+  //
   if (operation === '*') {
+    if (input.value === '') return
+    operation = '='
     return input.value = parseFloat(inputTop.value) * parseFloat(input.value)
   }
   if (operation === '/') {
+    if (input.value === '') return
+    operation = '='
     if (inputTop.value === '0' && input.value === '0') {
       return input.value = 'Error'
     }
