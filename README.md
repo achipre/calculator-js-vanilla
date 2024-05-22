@@ -1,6 +1,6 @@
 <div align='center'>
 
-# Tic-Tac-Toe (VanillaJS)
+# Calculator (VanillaJS)
 
 </div>
 
@@ -24,10 +24,10 @@ Demo: [https://calculadora-vanilla-js.netlify.app/](https://calculadora-vanilla-
 
 Language: [JavaScript]
 
-Bundle: [Nothing](https://vitejs.dev/)
+Bundle: [Nothing]
 
 Deploy: [Netlify](https://www.netlify.com/)
 
 ## Other Projects
 
-Tic-tac-toe: [Repository](https://github.com/achipre/tic-tac-toe--beginner), [Demo](tresenraya-reactjs.netlify.app)
+Tic-tac-toe: [[Repository]](https://github.com/achipre/tic-tac-toe--beginner), [[Demo]](tresenraya-reactjs.netlify.app)
